@@ -12,7 +12,10 @@ export const Welcome = () => {
                 </Text>
             </Title>
             <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
-                An agent to build and explore different trading strategies using reusable tinyblocks.
+            Low-Complexity Agent Infrastructure
+            </Text>
+            <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
+Large Language Models (LLMs) have emerged as powerful tools for translating high-level trading strategies into executable steps.
             </Text>
         </>
     );
