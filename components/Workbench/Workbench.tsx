@@ -382,6 +382,7 @@ export const Workbench = ({
               minRows={3}
               maxRows={3}
               style={{ flex: 1 }}
+              disabled
             />
             <Button onClick={handleChatSubmit} size="sm" style={{ marginTop: '4px' }}>
               <IconSend size={14} />
