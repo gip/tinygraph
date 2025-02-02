@@ -1,4 +1,4 @@
-export interface Oracle {
+export interface Block {
     id: string;
     title: string;
     isAbstract: boolean;

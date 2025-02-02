@@ -18,7 +18,7 @@ import {
   Stack,
 } from "@mantine/core";
 import { IconCrystalBall, IconSend, IconEdit } from "@tabler/icons-react";
-import { Oracle } from "@/types/Oracle";
+import { Block } from "@/types/Block";
 import { useEffect, useState } from "react";
 
 
@@ -277,36 +277,36 @@ export const Workbench = ({
   setSession,
 }: any) => {
   const [modalOpened, setModalOpened] = useState(false);
-  const [currentOracle, setCurrentOracle] = useState<Oracle | null>(null);
-  const [oracles, setOracles] = useState<Oracle[]>([o1, o2, o3]);
+  const [currentBlock, setCurrentBlock] = useState<Block | null>(null);
+  const [blocks, setBlocks] = useState<Block[]>([o1, o2, o3]);
   const [chatInput, setChatInput] = useState("");
   const [chatHistory, setChatHistory] = useState<{role: string, content: string}[]>([]);
 
   const iconStyle = { width: rem(12), height: rem(12) };
 
-  const handleSaveOracle = (oracle: Oracle) => {
-    if (oracle.id) {
-      // Edit existing oracle
-      setOracles(oracles.map(o => o.id === oracle.id ? oracle : o));
+  const handleSaveBlock = (block: Block) => {
+    if (block.id) {
+      // Edit existing block
+      setBlocks(blocks.map(o => o.id === block.id ? block : o));
     } else {
-      // Add new oracle with generated id
-      const newOracle = {
-        ...oracle,
+      // Add new block with generated id
+      const newBlock = {
+        ...block,
         id: Math.random().toString(36).substr(2, 9)
       };
-      setOracles([...oracles, newOracle]);
+      setBlocks([...blocks, newBlock]);
     }
     setModalOpened(false);
-    setCurrentOracle(null);
+    setCurrentBlock(null);
   };
 
-  const handleEditOracle = (oracle: Oracle) => {
-    setCurrentOracle(oracle);
+  const handleEditBlock = (block: Block) => {
+    setCurrentBlock(block);
     setModalOpened(true);
   };
 
-  const handleNewOracle = () => {
-    setCurrentOracle({
+  const handleNewBlock = () => {
+    setCurrentBlock({
       id: '',
       title: '',
       description: '',
@@ -333,7 +333,7 @@ export const Workbench = ({
         },
         body: JSON.stringify({
           prompt: chatInput,
-          blocks: oracles
+          blocks: blocks
         })
       });
 
@@ -382,7 +382,6 @@ export const Workbench = ({
               minRows={3}
               maxRows={3}
               style={{ flex: 1 }}
-              disabled
             />
             <Button onClick={handleChatSubmit} size="sm" style={{ marginTop: '4px' }}>
               <IconSend size={14} />
@@ -395,9 +394,9 @@ export const Workbench = ({
         opened={modalOpened}
         onClose={() => {
           setModalOpened(false);
-          setCurrentOracle(null);
+          setCurrentBlock(null);
         }}
-        title={currentOracle?.id ? "Edit Oracle" : "New Oracle"}
+        title={currentBlock?.id ? "Edit Block" : "New Block"}
         size="xl"
         styles={{
           body: {
@@ -405,32 +404,32 @@ export const Workbench = ({
           }
         }}
       >
-        {currentOracle && (
+        {currentBlock && (
           <Stack>
             <TextInput
               label="Title"
-              value={currentOracle.title}
-              onChange={(e) => setCurrentOracle({...currentOracle, title: e.target.value})}
+              value={currentBlock.title}
+              onChange={(e) => setCurrentBlock({...currentBlock, title: e.target.value})}
             />
             <TextInput
               label="Description"
-              value={currentOracle.description}
-              onChange={(e) => setCurrentOracle({...currentOracle, description: e.target.value})}
+              value={currentBlock.description}
+              onChange={(e) => setCurrentBlock({...currentBlock, description: e.target.value})}
             />
             <TextInput
               label="Image URL"
-              value={currentOracle.imageUrl}
-              onChange={(e) => setCurrentOracle({...currentOracle, imageUrl: e.target.value})}
+              value={currentBlock.imageUrl}
+              onChange={(e) => setCurrentBlock({...currentBlock, imageUrl: e.target.value})}
             />
             <Switch
               label="Abstract"
-              checked={currentOracle.isAbstract}
-              onChange={(e) => setCurrentOracle({...currentOracle, isAbstract: e.currentTarget.checked})}
+              checked={currentBlock.isAbstract}
+              onChange={(e) => setCurrentBlock({...currentBlock, isAbstract: e.currentTarget.checked})}
             />
             <Textarea
               label="Code"
-              value={currentOracle.codeContent}
-              onChange={(e) => setCurrentOracle({...currentOracle, codeContent: e.target.value})}
+              value={currentBlock.codeContent}
+              onChange={(e) => setCurrentBlock({...currentBlock, codeContent: e.target.value})}
               minRows={10}
               autosize
               maxRows={20}
@@ -438,15 +437,15 @@ export const Workbench = ({
             />
             <Textarea
               label="Simulation"
-              value={currentOracle.simulationContent}
-              onChange={(e) => setCurrentOracle({...currentOracle, simulationContent: e.target.value})}
+              value={currentBlock.simulationContent}
+              onChange={(e) => setCurrentBlock({...currentBlock, simulationContent: e.target.value})}
               minRows={10}
               autosize
               maxRows={20}
               style={{ flex: 1 }}
             />
-            <Button onClick={() => handleSaveOracle(currentOracle)}>
-              {currentOracle.id ? 'Save Changes' : 'Create Oracle'}
+            <Button onClick={() => handleSaveBlock(currentBlock)}>
+              {currentBlock.id ? 'Save Changes' : 'Create Block'}
             </Button>
           </Stack>
         )}
@@ -457,16 +456,16 @@ export const Workbench = ({
           size="sm"
           justify="left"
           leftSection={<IconCrystalBall style={iconStyle} />}
-          onClick={handleNewOracle}
+          onClick={handleNewBlock}
         >
           New Tiny Block
         </Button>
       </Group>
       <Container size="80rem" p="xs">
         <SimpleGrid cols={3} spacing="xs">
-          {oracles.map((oracle) => (
+          {blocks.map((block) => (
             <Paper 
-              key={oracle.id}
+              key={block.id}
               shadow="sm" 
               p="md"
               style={{
@@ -476,25 +475,25 @@ export const Workbench = ({
               }}
             >
               <Group justify="space-between" mb="xs">
-                <Text size="lg" fw={500}>{oracle.title}</Text>
+                <Text size="lg" fw={500}>{block.title}</Text>
                 <Group>
-                  {oracle.isAbstract && (
+                  {block.isAbstract && (
                     <Badge color="blue" variant="light">Abstract</Badge>
                   )}
                   <Button
                     variant="subtle"
                     size="xs"
-                    onClick={() => handleEditOracle(oracle)}
+                    onClick={() => handleEditBlock(block)}
                   >
                     <IconEdit size={14} />
                   </Button>
                 </Group>
               </Group>
-              <Text size="sm" c="dimmed">{oracle.description}</Text>
-              {oracle.imageUrl && (
+              <Text size="sm" c="dimmed">{block.description}</Text>
+              {block.imageUrl && (
                 <Image 
-                  src={oracle.imageUrl} 
-                  alt={oracle.title}
+                  src={block.imageUrl} 
+                  alt={block.title}
                   style={{
                     width: '100%',
                     height: 'auto',
