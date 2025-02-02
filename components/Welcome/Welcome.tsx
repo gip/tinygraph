@@ -7,8 +7,8 @@ export const Welcome = () => {
         <>
             <Title className={classes.title} ta="center" mt={100}>
                 Welcome to{' '}
-                <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
-                    TinyGraph
+                <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }} fs="italic">
+                    tinygraph
                 </Text>
             </Title>
             <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
