@@ -58,34 +58,14 @@ import { Logo } from '@/components/Logo/Logo';
 const mockdata = [
   {
     icon: IconAppWindow,
-    title: 'Agents',
-    description: 'Use a fine-tuned LLMs as your developper to create fullstack web agents',
+    title: 'Build Agents',
+    description: 'Compile and deploy your agents using tiny blocks',
   },
   {
     icon: IconWebhook,
-    title: 'Something',
-    description: 'Bla bla',
+    title: 'Agent Interface',
+    description: 'An open agent interface specification (coming soon)',
   },
-  // {
-  //   icon: IconBook,
-  //   title: 'Documentation',
-  //   description: 'Yanma is capable of seeing 360 degrees without',
-  // },
-  // {
-  //   icon: IconFingerprint,
-  //   title: 'Security',
-  //   description: 'The shell's rounded shape and the grooves on its.',
-  // },
-  // {
-  //   icon: IconChartPie3,
-  //   title: 'Analytics',
-  //   description: 'This Pokémon uses its flying ability to quickly chase',
-  // },
-  // {
-  //   icon: IconNotification,
-  //   title: 'Notifications',
-  //   description: 'Combusken battles with the intensely hot flames it spews',
-  // },
 ];
 
 const UserMenu = ({ user }: any) => {
@@ -114,51 +94,7 @@ const UserMenu = ({ user }: any) => {
         </UnstyledButton>
       </Menu.Target>
       <Menu.Dropdown>
-        {/* <Menu.Item
-          leftSection={
-            <IconHeart
-              style={{ width: rem(16), height: rem(16) }}
-              color={theme.colors.red[6]}
-              stroke={1.5}
-            />
-          }
-        >
-          Liked posts
-        </Menu.Item> */}
-        {/* <Menu.Item
-          leftSection={
-            <IconStar
-              style={{ width: rem(16), height: rem(16) }}
-              color={theme.colors.yellow[6]}
-              stroke={1.5}
-            />
-          }
-        >
-          Saved posts
-        </Menu.Item> */}
-        {/* <Menu.Item
-          leftSection={
-            <IconMessage
-              style={{ width: rem(16), height: rem(16) }}
-              color={theme.colors.blue[6]}
-              stroke={1.5}
-            />
-          }
-        >
-          Your comments
-        </Menu.Item> */}
 
-        {/* <Menu.Label>Projects</Menu.Label>
-        {projectCtx.projects.map((prj: any) =>
-        <Menu.Item
-          key={prj}
-          leftSection={
-            <IconSettings style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
-          }
-          onClick={() => router.push('/p/' + prj.projectId)}
-        >
-          {prj.projectName}
-        </Menu.Item>)} */}
 
         <Menu.Label>Account</Menu.Label>
         <Menu.Item>
@@ -272,9 +208,6 @@ export const Header = () => {
               <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
                 <Group justify="space-between" px="md">
                   <Text fw={500}>Features</Text>
-                  <Anchor href="/features" fz="xs">
-                    View all
-                  </Anchor>
                 </Group>
 
                 <Divider my="sm" />
@@ -282,22 +215,6 @@ export const Header = () => {
                 <SimpleGrid cols={2} spacing={0}>
                   {links}
                 </SimpleGrid>
-
-                <div className={classes.dropdownFooter}>
-                  <Group justify="space-between">
-                    <div>
-                      <Text fw={500} fz="sm">
-                        Get started
-                      </Text>
-                      <Text size="xs" c="dimmed">
-                        Start building
-                      </Text>
-                    </div>
-                    <Button variant="default" onClick={() => {}}>
-                      Sign up
-                    </Button>
-                  </Group>
-                </div>
               </HoverCard.Dropdown>
             </HoverCard>
             {/* <a href="#" className={classes.link}>

@@ -21,6 +21,9 @@ import { IconCrystalBall, IconSend, IconEdit } from "@tabler/icons-react";
 import { Oracle } from "@/types/Oracle";
 import { useEffect, useState } from "react";
 
+
+
+
 const code0 =
 `abstract class State {}
 
@@ -44,11 +47,9 @@ abstract class Runtime {
 }
 `;
 
-
-
 const o1 = {
   id: "predictor",
-  title: "Sime Predictor",
+  title: "Simple Predictor",
   description: "This predictor is a simple linear regression model that predicts the next value in a sequence based on the previous values.",
   imageUrl:
     "https://s3.tradingview.com/x/xMg5r0h4_mid.png",
@@ -277,7 +278,7 @@ export const Workbench = ({
 }: any) => {
   const [modalOpened, setModalOpened] = useState(false);
   const [currentOracle, setCurrentOracle] = useState<Oracle | null>(null);
-  const [oracles, setOracles] = useState<Oracle[]>([o1, o2, o3, o4]);
+  const [oracles, setOracles] = useState<Oracle[]>([o1, o2, o3]);
   const [chatInput, setChatInput] = useState("");
   const [chatHistory, setChatHistory] = useState<{role: string, content: string}[]>([]);
 
@@ -324,14 +325,34 @@ export const Workbench = ({
     setChatHistory(newHistory);
     setChatInput("");
     
-    // Here you would typically make an API call to your LLM service
-    // For now just echo back the message
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: chatInput,
+          blocks: oracles
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
       setChatHistory([...newHistory, {
         role: 'assistant',
-        content: `I received your message: ${chatInput}`
+        content: data.response || 'Sorry, I could not generate a response.'
       }]);
-    }, 500);
+    } catch (error) {
+      console.error('Error:', error);
+      setChatHistory([...newHistory, {
+        role: 'assistant',
+        content: 'Sorry, there was an error processing your request.'
+      }]);
+    }
   };
 
   if (!connected) {
